@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+const { useState, useRef, useCallback, useEffect, useMemo } = React;
 
 // ─── Constants ───
 const FONTS = ["Arial", "Georgia", "Courier New", "Verdana", "Times New Roman", "Trebuchet MS", "Impact", "Comic Sans MS"];
@@ -158,7 +158,7 @@ const Slider = ({ label, value, onChange, min = 0, max = 200, unit = "%" }) => (
 // ────────────────────────────────────────────────────────────────
 // MAIN APP
 // ────────────────────────────────────────────────────────────────
-export default function ImageEditor() {
+function ImageEditor() {
   // ─── Core state ───
   const initState = { layers: [], selectedId: null, canvasW: 1920, canvasH: 1080 };
   const { current: state, push: pushState, undo, redo, canUndo, canRedo } = useHistory(initState);
@@ -1036,3 +1036,5 @@ function ExportModal({ canvasW, canvasH, onClose, onExport }) {
     </div>
   );
 }
+
+window.ImageEditor = ImageEditor;
