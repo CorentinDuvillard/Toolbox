@@ -1,28 +1,9 @@
 # Toolbox
-Boîte à outils contenant toutes sortes d’outils utiles au quotidien
+Boîte à outils contenant toutes sortes d’outils utiles au quotidien. 
 
 # Contexte général
 
-Le projet contient 3 studios distincts en JSX et un index.html qui sert de vitrine/front d’accès.
-L’objectif est de transformer la vitrine actuelle, aujourd’hui mono-studio, en vitrine multi-studios.
-
-## État actuel du HTML
-
-Le fichier index.html monte uniquement un composant React nommé window.ImageEditor, chargé via un script Babel externe "./image-editor.jsx".
-Autrement dit :
-- il n’existe aujourd’hui qu’un seul point d’entrée actif dans la page ;
-- ce point d’entrée correspond au studio image ;
-- la page n’est pas encore conçue comme un shell applicatif multi-outils ;
-- le titre et le montage sont orientés “éditeur d’image”, pas “suite de studios”.
-
-## Architecture logique attendue
-
-Il faut penser l’application comme :
-- un shell HTML unique ;
-- une navigation principale entre studios ;
-- une zone de rendu centrale ;
-- un mapping entre un identifiant de studio et le composant à afficher ;
-- une couche de style commune, minimaliste, cohérente, indépendante du style interne de chaque studio.
+Le projet contient des studios distincts en JSX et un index.html qui sert de vitrine/front d’accès.
 
 # Détail des outils
 
@@ -99,40 +80,9 @@ Structure technique :
 - il n’est pas exposé sur window ;
 - lui aussi nécessite un contrat d’intégration cohérent avant de pouvoir être injecté dans la vitrine HTML existante.
 
-# Squelette d’interaction entre fichiers
 
-## Interaction actuelle :
-- index.html charge React, ReactDOM, Babel ;
-- index.html charge un seul fichier JSX ;
-- index.html monte un seul composant : window.ImageEditor.
-
-## Interaction cible :
-- index.html devient un shell d’application ;
-- le shell affiche une page d’accueil/landing + navigation des studios ;
-- le shell peut afficher :
-  - Vision Studio,
-  - Record Studio,
-  - PDF Studio ;
-- chaque studio reste responsable de sa logique métier ;
-- le shell ne doit gérer que :
-  - la navigation,
-  - le layout,
-  - la cohérence visuelle,
-  - le montage du bon composant.
-
-## Point technique critique
-Les trois studios ne partagent pas aujourd’hui le même contrat d’export :
-- Vision Studio → composant global via window.ImageEditor ;
-- Record Studio → export default ES module ;
-- PDF Studio → export default ES module.
-
-Avant de finaliser la vitrine HTML, il faut donc unifier l’intégration.
-Le plus simple pour une page HTML autonome sans build step est :
-- exposer aussi Record Studio et PDF Studio sur window ;
-- puis créer dans index.html un AppShell React qui choisit quel studio afficher.
-
-## Contraintes UI souhaitées
-La nouvelle vitrine HTML doit être :
+## Contraintes UI 
+La vitrine HTML doit être :
 - lisse ;
 - propre ;
 - minimaliste ;
@@ -140,7 +90,7 @@ La nouvelle vitrine HTML doit être :
 - premium mais sobre ;
 - avec une palette beige/brun donnée.
 
-# Palette à utiliser
+# Palette utiliser
 --cream:#FAF7F2;
 --cream-dark:#F3EDE4;
 --sand:#E8DFD1;
@@ -154,13 +104,3 @@ La nouvelle vitrine HTML doit être :
 --text-light:#7A6E63;
 --text-muted:#A69A8E;
 --white:#FFF;
-
-# Exigence de résultat
-Le HTML final doit devenir une vitrine multi-studios avec :
-- header propre ;
-- hero court ;
-- cartes ou onglets pour les 3 studios ;
-- descriptions synthétiques ;
-- bouton/interaction pour ouvrir chaque studio ;
-- gestion d’état simple du studio actif ;
-- intégration effective des 3 composants, pas juste une maquette statique.
